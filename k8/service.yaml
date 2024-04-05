@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     app: nodeserver
-  type: ClusterIP
+  type: LoadBalancer
   ports:
   - name: nodeserver-service
     port: 4545
