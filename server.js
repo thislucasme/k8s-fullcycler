@@ -2,6 +2,8 @@
 const http = require('http');
 
 // Define o conteúdo HTML que será enviado como resposta
+const name = process.env.NOME || "Nome Padrão";
+const age = process.env.AGE || 0;
 const htmlContent = `
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +13,7 @@ const htmlContent = `
     <title>Hello World</title>
 </head>
 <body>
-    <h1>Meu nome é Lucas!</h1>
+    <h1>Meu nome é ${name} e tenho ${age}!</h1>
 </body>
 </html>
 `;

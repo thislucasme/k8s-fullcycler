@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: nodeserver
-  replicas: 4
+  replicas: 1
   template:
     metadata:
       labels:
@@ -16,4 +16,9 @@ spec:
     spec:
       containers:
         - name: nodeserver
-          image: thislucasme/hello-node:v2
+          image: thislucasme/hello-node:v5
+          env:
+            - name: NOME
+              value: "Marcos"
+            - name: AGE
+              value: "87"
