@@ -19,6 +19,6 @@ spec:
           image: thislucasme/hello-node:v5
           env:
             - name: NOME
-              value: "Marcos"
+              value: "Joao"
             - name: AGE
               value: "87"
