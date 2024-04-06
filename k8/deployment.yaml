@@ -17,8 +17,6 @@ spec:
       containers:
         - name: nodeserver
           image: thislucasme/hello-node:v5
-          env:
-            - name: NOME
-              value: "Joao"
-            - name: AGE
-              value: "87"
+          envFrom:
+            - configMapRef:
+                name: nodeserver-env
