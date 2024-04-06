@@ -16,7 +16,18 @@ spec:
     spec:
       containers:
         - name: nodeserver
-          image: thislucasme/hello-node:v5
+          image: thislucasme/hello-node:v6
           envFrom:
             - configMapRef:
                 name: nodeserver-env
+          volumeMounts:
+            - mountPath: "/myfamily"
+              name: config
+      
+      volumes:
+        - name: config
+          configMap: 
+            name: configmap-family
+            items:
+            - key: members
+              path: "myfamily.txt"

@@ -1,7 +1,5 @@
-// Importa o módulo HTTP do Node.js
 const http = require('http');
-
-// Define o conteúdo HTML que será enviado como resposta
+const fs = require('fs');
 const name = process.env.NOME || "Nome Padrão";
 const age = process.env.AGE || 0;
 const htmlContent = `
@@ -18,18 +16,33 @@ const htmlContent = `
 </html>
 `;
 
-// Cria um servidor HTTP
 const server = http.createServer((req, res) => {
-    // Define o cabeçalho da resposta indicando que o conteúdo é HTML
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    // Envia o conteúdo HTML como resposta
-    res.end(htmlContent);
+    if (req.url === '/') {
+        // Rota padrão
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.end(htmlContent);
+    } else if (req.url === '/configmap') {
+        const filePath = 'myfamily/myfamily.txt';
+        fs.readFile(filePath, 'utf8', (err, data) => {
+            if (err) {
+                console.error('Erro ao ler o arquivo:', err);
+                return;
+            }
+            // Se a leitura for bem-sucedida, 'data' conterá o conteúdo do arquivo como uma string
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.end(`<h1>${data}</h1>`);
+        });
+        // Nova rota para configmap
+        
+    } else {
+        // Rota não encontrada
+        res.writeHead(404, {'Content-Type': 'text/plain'});
+        res.end('404 - Rota não encontrada');
+    }
 });
 
-// Define a porta em que o servidor irá ouvir
 const PORT = 4343;
 
-// Inicia o servidor, ouvindo na porta especificada
 server.listen(PORT, () => {
     console.log(`Servidor rodando em http://localhost:${PORT}/`);
 });
