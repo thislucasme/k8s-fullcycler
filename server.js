@@ -2,6 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const name = process.env.NOME || "Nome Padrão";
 const age = process.env.AGE || 0;
+const startedAt = new Date();
 const htmlContent = `
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +12,7 @@ const htmlContent = `
     <title>Hello World</title>
 </head>
 <body>
-    <h1>Meu nome é ${name} e tenho ${age}!</h1>
+    <h1>Meu nome é ${name} e tenho ${age} ${startedAt}!</h1>
 </body>
 </html>
 `;
@@ -21,7 +22,20 @@ const server = http.createServer((req, res) => {
         // Rota padrão
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.end(htmlContent);
-    } else if (req.url === '/configmap') {
+    }  else if(req.url === '/helthz') {
+        var currentDate = new Date();
+        var duration = currentDate - startedAt;
+        if (duration / 1000 > 25) {
+            res.writeHead(500, {'Content-Type': 'text/html'});
+        res.end("<h1>duration:</h1>"+duration+", "+duration / 1000);
+        }else{
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.end("ok");
+        }
+
+       
+    }
+    else if (req.url === '/configmap') {
         const filePath = 'myfamily/myfamily.txt';
         fs.readFile(filePath, 'utf8', (err, data) => {
             if (err) {
@@ -32,6 +46,7 @@ const server = http.createServer((req, res) => {
             res.writeHead(200, {'Content-Type': 'text/html'});
             res.end(`<h1>${data}</h1>`);
         });
+        
         // Nova rota para configmap
         
     } else {

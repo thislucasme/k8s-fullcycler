@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: nodeserver
-          image: thislucasme/hello-node:v6
+          image: thislucasme/hello-node:v5.1
           envFrom:
             - configMapRef:
                 name: nodeserver-env
