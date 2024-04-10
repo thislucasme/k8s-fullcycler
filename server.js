@@ -25,7 +25,7 @@ const server = http.createServer((req, res) => {
     }  else if(req.url === '/helthz') {
         var currentDate = new Date();
         var duration = currentDate - startedAt;
-        if (duration / 1000 < 10) {
+        if (duration / 1000 < 10 || duration / 1000 > 30) {
             res.writeHead(500, {'Content-Type': 'text/html'});
         res.end("<h1>duration:</h1>"+duration+", "+duration / 1000);
         }else{
