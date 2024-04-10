@@ -17,6 +17,15 @@ spec:
       containers:
         - name: nodeserver
           image: thislucasme/hello-node:v5.6
+          startupProbe:
+            httpGet:
+              path: /helthz
+              port: 4343
+            periodSeconds: 3
+            failureThreshold: 30
+            timeoutSeconds: 1
+            successThreshold: 1
+
           readinessProbe:
             httpGet:
               path: /helthz
@@ -25,7 +34,7 @@ spec:
             failureThreshold: 1
             timeoutSeconds: 1
             successThreshold: 1
-            initialDelaySeconds: 10
+            #initialDelaySeconds: 10
 
           livenessProbe:
             httpGet:
@@ -35,7 +44,7 @@ spec:
             failureThreshold: 1
             timeoutSeconds: 1
             successThreshold: 1
-            initialDelaySeconds: 15
+            #initialDelaySeconds: 15
           envFrom:
             - configMapRef:
                 name: nodeserver-env
