@@ -19,10 +19,10 @@ spec:
           image: thislucasme/hello-node:v5.6
           resources:
             requests:
-              cpu: "0.05"
+              cpu: "0.3"
               memory: 20Mi
             limits:
-              cpu: "0.05"
+              cpu: "0.3"
               memory: 25Mi 
           # startupProbe:
           #   httpGet:
@@ -58,8 +58,13 @@ spec:
           volumeMounts:
             - mountPath: "/myfamily"
               name: config
+            - mountPath: "/node/pvc"
+              name: nodeserver-volume
       
       volumes:
+        - name: nodeserver-volume
+          persistentVolumeClaim:
+            claimName: nodeserver-pvc 
         - name: config
           configMap: 
             name: configmap-family
