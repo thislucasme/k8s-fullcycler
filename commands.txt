@@ -1,0 +1,33 @@
+kind create cluster - criar um cluster
+kubectl cluster-info --context kind-kind - usar o cluster
+kubectl get nodes - get all nodes
+kind get clusters
+kind delete clusters kind
+
+kind create cluster --config=kind.yaml --name=fullcycler
+kubectl config get-clusters
+kubectl config use-context nome-do-context
+kubectl apply -f k8/pod.yaml 
+kubectl get pods 
+kubectl delete pod nodeserver
+kubectl get replicaset
+kubectl get replicasets
+kubectl delete replicaset nodeserver
+kubectl rollout history deployment nodeserver		
+kubectl rollout undo deployment nodeserver
+kubectl port-forward service/nodeserver-server 4545:4545
+kubectl proxy --port=8080
+
+
+kubectl exec -it nodeserver-6ddbf476b4-t4x9z -- /bin/sh
+
+watch -n1 kubectl get pods
+https://github.com/kubernetes-sigs/metrics-server
+wget https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+kubectl top pod nodeserver-5fdd87b49b-2k5kg
+
+kubectl -it --generator=run-pod/v1 fortio --rm --image=fortio/fortio -- load
+kubectl get pvc
+kubectl get storageclass
